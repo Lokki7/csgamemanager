@@ -7,38 +7,38 @@ from engines.server import server
 from engines.server import queue_command_string
 from filters.players import PlayerIter
 from threading import Timer
+from player_c import CPlayerGenerator
 
 import urllib.request
 import json
 
-round_status = False
+last_round = False
 
 
-def load():
-    SayText2('Plugin has been loaded successfully!').send()
-
-
-def unload():
-    SayText2('Plugin has been unloaded successfully!').send()
+# def load():
+#     SayText2('Plugin has been loaded successfully!').send()
+#
+#
+# def unload():
+#     SayText2('Plugin has been unloaded successfully!').send()
 
 
 @Event('round_announce_last_round_half')
 def round_announce_last_round_half(game_event):
-    global round_status
-    round_status = True
+    global last_round
+    last_round = True
 
 
 @Event('round_end')
 def round_end(game_event):
-    global round_status
+    global last_round
 
-    if not round_status:
+    if not last_round:
         return
 
-    round_status = False
+    last_round = False
 
-    print('last_round_half')
-    SayText2('last_round_half').send()
+    save_stats()
 
 
 @Event('teamchange_pending')
@@ -60,6 +60,13 @@ def on_player_score(event):
     t.start()
 
     post_score(port)
+
+
+def save_stats():
+    for player in CPlayerGenerator():
+        print(dir(player))
+        
+    return
 
 
 def shutdown():
