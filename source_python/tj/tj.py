@@ -11,6 +11,8 @@ from threading import Timer
 import urllib.request
 import json
 
+round_status = False
+
 
 def load():
     SayText2('Plugin has been loaded successfully!').send()
@@ -20,22 +22,20 @@ def unload():
     SayText2('Plugin has been unloaded successfully!').send()
 
 
-_round_status = False
-
-
 @Event('round_announce_last_round_half')
 def round_announce_last_round_half(game_event):
-    global _round_status
-    _round_status = True
+    global round_status
+    round_status = True
 
 
 @Event('round_end')
 def round_end(game_event):
-    if not _round_status:
+    global round_status
+
+    if not round_status:
         return
 
-    global _round_status
-    _round_status = False
+    round_status = False
 
     print('last_round_half')
     SayText2('last_round_half').send()
