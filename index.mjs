@@ -7,11 +7,12 @@ app.use(express.json());
 let servers = {};
 
 app.post('/cs/start', async (req, res) => {
-  let {map} = req.body;
+  let {map, match} = req.body;
 
   let server = new CsServer();
   let connectParams = await server.start({map});
 
+  server.matchId = match;
   servers[connectParams.port] = server;
 
   res.send({server: connectParams});
@@ -27,6 +28,8 @@ app.post('/cs/ended', async (req, res) => {
     server.kill();
     delete servers[port];
   }
+
+  // send score to web
 
   res.send('ok');
 });

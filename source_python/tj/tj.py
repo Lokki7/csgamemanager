@@ -7,6 +7,7 @@ from engines.server import server
 from engines.server import queue_command_string
 from filters.players import PlayerIter
 
+import time
 import urllib.request
 import json
 
@@ -23,6 +24,8 @@ def on_player_score(game_event):
     SayText2('Match has ended').send()
     port = server.udp_port
     post_score(port)
+    SayText2('Game has ended. The server will be shut down in 10 seconds').send()
+    time.sleep(10)
     queue_command_string('quit')
 
 
@@ -33,6 +36,7 @@ def post_score(port):
         score.append(entity.score)
 
     body = {'score': score, 'port': port}
+
     myurl = "http://localhost:3000/cs/ended"
     req = urllib.request.Request(myurl)
     req.add_header('Content-Type', 'application/json; charset=utf-8')
