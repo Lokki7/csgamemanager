@@ -13,6 +13,7 @@ import urllib.request
 import json
 
 last_round = False
+total_score = {}
 
 
 # def load():
@@ -63,9 +64,15 @@ def on_player_score(event):
 
 
 def save_stats():
+    global total_score
+
     for player in PlayerIter():
-        print(dir(player))
-        
+        if player.name not in total_score:
+            total_score[player.name] = {'score': 0, 'kills': 0, 'deaths': 0}
+
+        total_score[player.name]['kills'] += player.kills
+        total_score[player.name]['deaths'] += player.deaths
+
     return
 
 
@@ -74,7 +81,10 @@ def shutdown():
 
 
 def post_score(port):
+    global total_score
     score = []
+
+    print(total_score)
 
     for entity in EntityIter('cs_team_manager'):
         score.append(entity.score)
