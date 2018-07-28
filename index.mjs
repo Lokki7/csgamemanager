@@ -19,7 +19,7 @@ app.post('/cs/start', async (req, res) => {
 
 app.post('/cs/ended', async (req, res) => {
   let {port, score} = req.body;
-  console.log('Got score', score || '?');
+  console.log('Got ended', req.body);
 
   let server = servers[port];
   if(server) {
@@ -31,4 +31,4 @@ app.post('/cs/ended', async (req, res) => {
   res.send('ok');
 });
 
-app.listen(3000, () => console.log('App is listening on port 3000'));
+app.listen(3000, '0.0.0.0');
