@@ -24,22 +24,22 @@ total_score = {}
 #     SayText2('Plugin has been unloaded successfully!').send()
 
 
-@Event('round_announce_last_round_half')
-def round_announce_last_round_half(game_event):
-    global last_round
-    last_round = True
-
-
-@Event('round_end')
-def round_end(game_event):
-    global last_round
-
-    if not last_round:
-        return
-
-    last_round = False
-
-    save_stats()
+# @Event('round_announce_last_round_half')
+# def round_announce_last_round_half(game_event):
+#     global last_round
+#     last_round = True
+#
+#
+# @Event('round_end')
+# def round_end(game_event):
+#     global last_round
+#
+#     if not last_round:
+#         return
+#
+#     last_round = False
+#
+#     save_stats()
 
 
 @Event('teamchange_pending')
@@ -56,7 +56,7 @@ def player_team(event):
 def on_player_score(event):
     SayText2('The game has ended. The server will be shut down in 10 seconds').send()
 
-    # save_stats()
+    save_stats()
     port = server.udp_port
     t = Timer(10.0, shutdown)
     t.start()
