@@ -13,11 +13,16 @@ import json
 
 
 def load():
-     SayText2('Plugin has been loaded successfully!').send()
+    SayText2('Plugin has been loaded successfully!').send()
 
 
 def unload():
-     SayText2('Plugin has been unloaded successfully!').send()
+    SayText2('Plugin has been unloaded successfully!').send()
+
+
+@Event('player_spawn')
+def on_player_spawn():
+    SayText2('player_spawn').send()
 
 
 @Event('start_halftime')
