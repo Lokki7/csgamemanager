@@ -20,20 +20,46 @@ def unload():
     SayText2('Plugin has been unloaded successfully!').send()
 
 
+_round_status = False
+
+
+@Event('round_announce_last_round_half')
+def round_announce_last_round_half(game_event):
+    global _round_status
+    _round_status = True
+
+
 @Event('round_end')
-def round_end(event):
-    SayText2('round_end').send()
+def round_end(game_event):
+    if not _round_status:
+        return
+
+    global _round_status
+    _round_status = False
+
+    print('last_round_half')
+    SayText2('last_round_half').send()
+
+
+@Event('teamchange_pending')
+def teamchange_pending(event):
+    SayText2('teamchange_pending').send()
+
+
+@Event('player_team')
+def player_team(event):
+    SayText2('player_team').send()
 
 
 @Event('cs_win_panel_match')
 def on_player_score(event):
-    SayText2('Match has ended').send()
-    port = server.udp_port
-    post_score(port)
-    SayText2('Game has ended. The server will be shut down in 10 seconds').send()
+    SayText2('The game has ended. The server will be shut down in 10 seconds').send()
 
+    port = server.udp_port
     t = Timer(10.0, shutdown)
     t.start()
+
+    post_score(port)
 
 
 def shutdown():
