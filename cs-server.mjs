@@ -12,7 +12,7 @@ const defaultParams = {
   '-usercon': '',
   '+game_type': 0,
   '+game_mode': 0,
-  '+map': 'de_dust',
+  '+map': 'de_dust2',
   '+mapgroup': 'mg_active',
   '+sv_setsteamaccount': steamAcc,
 };
