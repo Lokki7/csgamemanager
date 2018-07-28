@@ -74,8 +74,9 @@ def save_stats():
         # print(dir(player.get_team()))
 
         team_score = 0
-        for entity in EntityIter('cs_team_manager'):
-            print(dir(entity))
+        for team in EntityIter('cs_team_manager'):
+            if team.team_index == player.team:
+                team_score = team.score
 
         total_score[player.name]['kills'] += player.kills
         total_score[player.name]['deaths'] += player.deaths
