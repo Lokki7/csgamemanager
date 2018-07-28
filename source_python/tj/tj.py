@@ -23,11 +23,12 @@ def load():
 @Event('cs_win_panel_round')
 def on_player_score(game_event):
     SayText2('Match has ended').send()
-    post_score()
-
-
-def post_score():
     port = server.udp_port
+    post_score(port)
+    server.execute_server_command('quit')
+
+
+def post_score(port):
     score = []
 
     for entity in EntityIter('cs_team_manager'):
