@@ -8,6 +8,7 @@ from engines.server import queue_command_string
 from filters.players import PlayerIter
 from threading import Timer
 from filters.players import PlayerIter
+from listeners import OnServerActivate
 
 import urllib.request
 import json
@@ -41,6 +42,12 @@ import json
 #     last_round = False
 #
 #     save_stats()
+
+
+@OnServerActivate
+def on_server_activate(edicts, edict_count, max_clients):
+    print('on_server_activate')
+    pass
 
 
 @Event('server_spawn')
