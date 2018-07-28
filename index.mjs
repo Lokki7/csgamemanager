@@ -23,7 +23,7 @@ app.post('/cs/ended', async (req, res) => {
   console.log('Got ended', req.body);
 
   let server = servers[port];
-  if(server) {
+  if (server) {
     console.log(`Stopping server at ${port}`);
     server.kill();
     delete servers[port];

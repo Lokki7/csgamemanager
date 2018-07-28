@@ -12,8 +12,9 @@ from filters.players import PlayerIter
 import urllib.request
 import json
 
-last_round = False
-total_score = {}
+
+# last_round = False
+# total_score = {}
 
 
 # def load():
@@ -56,7 +57,6 @@ def player_team(event):
 def on_player_score(event):
     SayText2('The game has ended. The server will be shut down in 10 seconds').send()
 
-    save_stats()
     port = server.udp_port
     t = Timer(10.0, shutdown)
     t.start()
@@ -64,9 +64,9 @@ def on_player_score(event):
     post_score(port)
 
 
-def save_stats():
+def count_score():
     print('save_stats fired')
-    global total_score
+    total_score = {}
 
     for player in PlayerIter():
         if player.name not in total_score:
@@ -77,12 +77,12 @@ def save_stats():
             if team.team_index == player.team:
                 team_score = team.score
 
-        total_score[player.name]['kills'] += player.kills
-        total_score[player.name]['deaths'] += player.deaths
+        total_score[player.name]['kills'] = player.kills
+        total_score[player.name]['deaths'] = player.deaths
         total_score[player.name]['score'] = team_score
 
     print(total_score)
-    return
+    return total_score
 
 
 def shutdown():
@@ -90,11 +90,9 @@ def shutdown():
 
 
 def post_score(port):
-    global total_score
     print('post_score fired')
-    print(total_score)
 
-    body = {'score': total_score, 'port': port}
+    body = {'score': count_score(), 'port': port}
 
     myurl = "http://localhost:3000/cs/ended"
     req = urllib.request.Request(myurl)

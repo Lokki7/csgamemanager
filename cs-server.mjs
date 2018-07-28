@@ -20,6 +20,7 @@ const defaultParams = {
 export default class CsServer {
 
   constructor() {
+    this.cb = () => {};
   }
 
   async start({map}) {
@@ -28,12 +29,14 @@ export default class CsServer {
     let params = {
       ...defaultParams,
       '+map': map,
-      '-port': port
+      '-port': this.port
     };
 
     this.process = this.shellExec(params);
 
-    return {ip, port}
+    return new Promise(resolve => {
+      this.cb = () => resolve({ip, port});
+    });
   }
 
   shellExec(params) {
