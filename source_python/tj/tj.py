@@ -56,6 +56,7 @@ def player_team(event):
 def on_player_score(event):
     SayText2('The game has ended. The server will be shut down in 10 seconds').send()
 
+    save_stats()
     port = server.udp_port
     t = Timer(10.0, shutdown)
     t.start()
@@ -70,9 +71,14 @@ def save_stats():
         if player.name not in total_score:
             total_score[player.name] = {'score': 0, 'kills': 0, 'deaths': 0}
 
+        print(dir(player.get_team()))
+
         total_score[player.name]['kills'] += player.kills
         total_score[player.name]['deaths'] += player.deaths
+        total_score[player.name]['score'] = player.get_team().score
 
+
+    print(total_score)
     return
 
 
@@ -82,14 +88,14 @@ def shutdown():
 
 def post_score(port):
     global total_score
-    score = []
+    # score = []
 
     print(total_score)
 
-    for entity in EntityIter('cs_team_manager'):
-        score.append(entity.score)
+    # for entity in EntityIter('cs_team_manager'):
+    #     score.append(entity.score)
 
-    body = {'score': score, 'port': port}
+    body = {'score': total_score, 'port': port}
 
     myurl = "http://localhost:3000/cs/ended"
     req = urllib.request.Request(myurl)
