@@ -25,7 +25,7 @@ def on_player_score(game_event):
     SayText2('Match has ended').send()
     port = server.udp_port
     post_score(port)
-    server.execute_server_command('quit')
+    queue_command_string('quit')
 
 
 def post_score(port):

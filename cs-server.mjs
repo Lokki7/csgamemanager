@@ -1,4 +1,4 @@
-import {spawn} from 'child_process';
+import cp from 'child_process';
 import PortChecker from './post-checker';
 
 const ip = '195.9.195.14';
@@ -11,8 +11,8 @@ const defaultParams = {
   '-console': '',
   '-usercon': '',
   '+game_type': 0,
-  '+game_mode': 0,
-  '+map': 'de_dust',
+  '+game_mode': 1,
+  '+map': 'de_dust2',
   '+mapgroup': 'mg_active',
   '+sv_setsteamaccount': steamAcc,
 };
@@ -37,7 +37,7 @@ export default class CsServer {
   }
 
   shellExec(params) {
-    let cs = spawn(execCmd, this.buildExecParams(params), {cwd});
+    let cs = cp.spawn(execCmd, this.buildExecParams(params), {cwd});
 
     cs.stdout.on('data', (data) => console.log(`stdout: ${data}`));
     cs.stderr.on('data', (data) => console.log(`stderr: ${data}`));
