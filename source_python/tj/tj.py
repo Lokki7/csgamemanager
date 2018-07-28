@@ -12,6 +12,7 @@ from listeners import OnServerActivate
 
 import urllib.request
 import json
+import sys
 
 
 # last_round = False
@@ -46,23 +47,9 @@ import json
 
 @OnServerActivate
 def on_server_activate(edicts, edict_count, max_clients):
-    print('on_server_activate')
+    print('On_server_activate')
+    sys.stdout.flush()
     pass
-
-
-@Event('server_spawn')
-def server_spawn(event):
-    print('server_spawn')
-
-
-@Event('gc_connected')
-def gc_connected(event):
-    print('gc_connected')
-
-
-@Event('player_team')
-def player_team(event):
-    SayText2('player_team').send()
 
 
 @Event('cs_win_panel_match')
