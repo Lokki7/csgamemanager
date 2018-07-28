@@ -56,7 +56,7 @@ def player_team(event):
 def on_player_score(event):
     SayText2('The game has ended. The server will be shut down in 10 seconds').send()
 
-    save_stats()
+    # save_stats()
     port = server.udp_port
     t = Timer(10.0, shutdown)
     t.start()
@@ -65,13 +65,12 @@ def on_player_score(event):
 
 
 def save_stats():
+    print('save_stats fired')
     global total_score
 
     for player in PlayerIter():
         if player.name not in total_score:
             total_score[player.name] = {'score': 0, 'kills': 0, 'deaths': 0}
-
-        # print(dir(player.get_team()))
 
         team_score = 0
         for team in EntityIter('cs_team_manager'):
@@ -92,12 +91,8 @@ def shutdown():
 
 def post_score(port):
     global total_score
-    # score = []
-
+    print('post_score fired')
     print(total_score)
-
-    # for entity in EntityIter('cs_team_manager'):
-    #     score.append(entity.score)
 
     body = {'score': total_score, 'port': port}
 
