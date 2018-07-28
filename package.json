@@ -1,0 +1,17 @@
+{
+  "name": "gameservermanager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --experimental-modules index.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "express": "^4.16.3",
+    "net": "^1.0.2"
+  }
+}

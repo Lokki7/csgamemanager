@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo 'started'
+sleep 600
+echo 'ended'
