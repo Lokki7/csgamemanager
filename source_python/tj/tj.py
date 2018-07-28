@@ -71,12 +71,15 @@ def save_stats():
         if player.name not in total_score:
             total_score[player.name] = {'score': 0, 'kills': 0, 'deaths': 0}
 
-        print(dir(player.get_team()))
+        # print(dir(player.get_team()))
+
+        team_score = 0
+        for entity in EntityIter('cs_team_manager'):
+            print(dir(entity))
 
         total_score[player.name]['kills'] += player.kills
         total_score[player.name]['deaths'] += player.deaths
-        total_score[player.name]['score'] = player.get_team().score
-
+        total_score[player.name]['score'] = team_score
 
     print(total_score)
     return
