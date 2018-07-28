@@ -29,11 +29,10 @@ export default class CsServer {
     let params = {
       ...defaultParams,
       '+map': map,
-      '-port': this.port
+      '-port': port
     };
 
     this.process = this.shellExec(params);
-
     return new Promise(resolve => this.cb = () => resolve({ip, port}));
   }
 
