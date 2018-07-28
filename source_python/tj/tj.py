@@ -7,7 +7,7 @@ from engines.server import server
 from engines.server import queue_command_string
 from filters.players import PlayerIter
 from threading import Timer
-from player_c import CPlayerGenerator
+from filters.players import PlayerIter
 
 import urllib.request
 import json
@@ -63,7 +63,7 @@ def on_player_score(event):
 
 
 def save_stats():
-    for player in CPlayerGenerator():
+    for player in PlayerIter():
         print(dir(player))
         
     return
