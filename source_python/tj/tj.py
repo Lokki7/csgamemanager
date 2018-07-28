@@ -18,15 +18,39 @@ import json
 # def unload():
 #     SayText2('Plugin has been unloaded successfully!').send()
 
+@Event('start_halftime')
+def start_halftime():
+    SayText2('start_halftime').send()
+
+
+@Event('cs_intermission')
+def start_halftime():
+    SayText2('start_halftime').send()
+
+
+@Event('map_transition')
+def map_transition():
+    SayText2('map_transition').send()
+
+
+@Event('player_score')
+def player_score():
+    SayText2('player_score').send()
+
+
+@Event('team_score')
+def player_score():
+    SayText2('team_score').send()
+
 
 @Event('cs_win_panel_match')
-def on_player_score(game_event):
+def on_player_score():
     SayText2('Match has ended').send()
     port = server.udp_port
     post_score(port)
-    SayText2('Game has ended. The server will be shut down in 30 seconds').send()
+    SayText2('Game has ended. The server will be shut down in 10 seconds').send()
 
-    t = Timer(30.0, shutdown)
+    t = Timer(10.0, shutdown)
     t.start()
 
 
