@@ -21,37 +21,37 @@ def unload():
 
 
 @Event('player_spawn')
-def on_player_spawn():
+def on_player_spawn(event):
     SayText2('player_spawn').send()
 
 
 @Event('start_halftime')
-def start_halftime():
+def start_halftime(event):
     SayText2('start_halftime').send()
 
 
 @Event('cs_intermission')
-def cs_intermission():
+def cs_intermission(event):
     SayText2('cs_intermission').send()
 
 
 @Event('map_transition')
-def map_transition():
+def map_transition(event):
     SayText2('map_transition').send()
 
 
 @Event('player_score')
-def player_score():
+def player_score(event):
     SayText2('player_score').send()
 
 
 @Event('team_score')
-def player_score():
+def player_score(event):
     SayText2('team_score').send()
 
 
 @Event('cs_win_panel_match')
-def on_player_score():
+def on_player_score(event):
     SayText2('Match has ended').send()
     port = server.udp_port
     post_score(port)
