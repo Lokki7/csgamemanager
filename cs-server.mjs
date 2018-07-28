@@ -42,7 +42,12 @@ export default class CsServer {
   shellExec(params) {
     let cs = cp.spawn(execCmd, this.buildExecParams(params), {cwd});
 
-    cs.stdout.on('data', (data) => console.log(`stdout: ${data}`));
+    cs.stdout.on('data', (data) => {
+      if(data.indexOf('On_server_activate') !== -1) {
+        this.cb();
+      }
+    });
+
     cs.stderr.on('data', (data) => console.log(`stderr: ${data}`));
     cs.stderr.on('close', (code, signal) => console.log(`child process terminated due to receipt of signal ${signal}`));
 
