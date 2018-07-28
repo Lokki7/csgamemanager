@@ -34,18 +34,15 @@ export default class CsServer {
 
     this.process = this.shellExec(params);
 
-    return new Promise(resolve => {
-      this.cb = () => resolve({ip, port});
-    });
+    return new Promise(resolve => this.cb = () => resolve({ip, port}));
   }
 
   shellExec(params) {
     let cs = cp.spawn(execCmd, this.buildExecParams(params), {cwd});
 
     cs.stdout.on('data', (data) => {
-      if(data.indexOf('On_server_activate') !== -1) {
-        this.cb();
-      }
+      if (data.indexOf('On_server_activate') !== -1) this.cb();
+      console.log(`stdout: ${data}`);
     });
 
     cs.stderr.on('data', (data) => console.log(`stderr: ${data}`));
