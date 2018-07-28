@@ -6,8 +6,8 @@ from filters.entities import EntityIter
 from engines.server import server
 from engines.server import queue_command_string
 from filters.players import PlayerIter
+from threading import Timer
 
-import time
 import urllib.request
 import json
 
@@ -24,8 +24,13 @@ def on_player_score(game_event):
     SayText2('Match has ended').send()
     port = server.udp_port
     post_score(port)
-    SayText2('Game has ended. The server will be shut down in 10 seconds').send()
-    time.sleep(10)
+    SayText2('Game has ended. The server will be shut down in 30 seconds').send()
+
+    t = Timer(30.0, shutdown)
+    t.start()
+
+
+def shutdown():
     queue_command_string('quit')
 
 
