@@ -43,9 +43,14 @@ import json
 #     save_stats()
 
 
-@Event('teamchange_pending')
-def teamchange_pending(event):
-    SayText2('teamchange_pending').send()
+@Event('server_spawn')
+def server_spawn(event):
+    print('server_spawn')
+
+
+@Event('gc_connected')
+def gc_connected(event):
+    print('gc_connected')
 
 
 @Event('player_team')
