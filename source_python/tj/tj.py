@@ -12,11 +12,13 @@ import urllib.request
 import json
 
 
-#def load():
-#     SayText2('Plugin has been loaded successfully!').send()
+def load():
+     SayText2('Plugin has been loaded successfully!').send()
 
-# def unload():
-#     SayText2('Plugin has been unloaded successfully!').send()
+
+def unload():
+     SayText2('Plugin has been unloaded successfully!').send()
+
 
 @Event('start_halftime')
 def start_halftime():
@@ -24,8 +26,8 @@ def start_halftime():
 
 
 @Event('cs_intermission')
-def start_halftime():
-    SayText2('start_halftime').send()
+def cs_intermission():
+    SayText2('cs_intermission').send()
 
 
 @Event('map_transition')
