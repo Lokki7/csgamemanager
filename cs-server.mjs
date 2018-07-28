@@ -11,8 +11,8 @@ const defaultParams = {
   '-console': '',
   '-usercon': '',
   '+game_type': 0,
-  '+game_mode': 1,
-  '+map': 'de_dust2',
+  '+game_mode': 0,
+  '+map': 'de_dust',
   '+mapgroup': 'mg_active',
   '+sv_setsteamaccount': steamAcc,
 };
@@ -39,6 +39,8 @@ export default class CsServer {
   shellExec(params) {
     let cs = cp.spawn(execCmd, this.buildExecParams(params), {cwd});
 
+    console.log(this.buildExecParams(params));
+
     cs.stdout.on('data', (data) => console.log(`stdout: ${data}`));
     cs.stderr.on('data', (data) => console.log(`stderr: ${data}`));
     cs.stderr.on('close', (code, signal) => console.log(`child process terminated due to receipt of signal ${signal}`));
@@ -48,7 +50,7 @@ export default class CsServer {
 
   kill() {
     console.log('Killing process');
-    this.process.kill();
+    this.process.kill('SIGTERM');
   }
 
   buildExecParams(params) {
