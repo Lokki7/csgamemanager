@@ -4,7 +4,7 @@ import PortChecker from './post-checker';
 const ip = '195.9.195.14';
 const execCmd = `./srcds_run`;
 const steamAcc = 'CEE6A690FC37A645811F901EEC6BE138';
-const cwd = '.';
+const cwd = '/home/rumin.p/duels/cs_go';
 
 const defaultParams = {
   '-game': 'csgo',

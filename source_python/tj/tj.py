@@ -3,8 +3,14 @@ from events import Event
 from players.entity import Player
 from players.helpers import index_from_userid
 from filters.entities import EntityIter
+from engines.server import server
+
 
 def load():
+    port = server.udp_port
+    print('!!!!!')
+    print(port)
+    print('!!!!!')
     SayText2('Plugin has been loaded successfully!').send()
 
 def unload():
