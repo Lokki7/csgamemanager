@@ -1,5 +1,6 @@
 import express from 'express';
-import CsServer from './cs-server'
+import CsServer from './cs-server';
+import fetch from 'node-fetch';
 
 const app = express();
 app.use(express.json());
@@ -29,8 +30,21 @@ app.post('/cs/ended', async (req, res) => {
     delete servers[port];
   }
 
-  // send score to web
+  let body = {
+    match: server.matchId,
+    score: score
+  };
 
+  fetch('http://esport-tj.imt.zone/api/matches/duels/result', {
+    method: 'POST',
+    body:    JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
+  })
+    .then(res => res.json())
+    .then(json => console.log(json));
+
+
+  // send score to web
   res.send('ok');
 });
 
