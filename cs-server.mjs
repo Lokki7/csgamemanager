@@ -23,7 +23,7 @@ export default class CsServer {
     this.cb = () => {};
   }
 
-  async start({map}) {
+  async start({map, players}) {
     let port = await (new PortChecker()).getFreePort();
 
     let params = {
@@ -32,12 +32,14 @@ export default class CsServer {
       '-port': port
     };
 
-    this.process = this.shellExec(params);
+    let env = {'steamplayers': players};
+
+    this.process = this.shellExec(params, env);
     return new Promise(resolve => this.cb = () => resolve({ip, port}));
   }
 
-  shellExec(params) {
-    let cs = cp.spawn(execCmd, this.buildExecParams(params), {cwd});
+  shellExec(params, env) {
+    let cs = cp.spawn(execCmd, this.buildExecParams(params), {cwd, env});
 
     cs.stdout.on('data', (data) => {
       if (data.indexOf('On_server_activate') !== -1) this.cb();

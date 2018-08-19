@@ -8,10 +8,10 @@ app.use(express.json());
 let servers = {};
 
 app.post('/cs/start', async (req, res) => {
-  let {map, match} = req.body;
+  let {map, match, players} = req.body;
 
   let server = new CsServer();
-  let connectParams = await server.start({map});
+  let connectParams = await server.start({map, players});
 
   server.matchId = match;
   servers[connectParams.port] = server;
