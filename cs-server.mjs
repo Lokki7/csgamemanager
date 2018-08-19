@@ -4,7 +4,7 @@ import PortChecker from './post-checker';
 const ip = '195.9.195.14';
 const execCmd = `./srcds_run`;
 const steamAcc = 'CEE6A690FC37A645811F901EEC6BE138';
-const cwd = '/home/rumin.p/duels/cs_go';
+const cwd = '/home/csuser/duels/cs-go/';
 
 const defaultParams = {
   '-game': 'csgo',
@@ -32,7 +32,7 @@ export default class CsServer {
       '-port': port
     };
 
-    let env = {'steamplayers': players};
+    let env = {'steamplayers': JSON.stringify(players)};
 
     this.process = this.shellExec(params, env);
     return new Promise(resolve => this.cb = () => resolve({ip, port}));

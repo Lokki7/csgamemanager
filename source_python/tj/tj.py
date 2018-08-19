@@ -9,11 +9,14 @@ from filters.players import PlayerIter
 from threading import Timer
 from filters.players import PlayerIter
 from listeners import OnServerActivate
+from steam import SteamID
 
 import urllib.request
 import json
 import sys
+import os
 
+players = []
 
 # last_round = False
 # total_score = {}
@@ -48,6 +51,7 @@ import sys
 @OnServerActivate
 def on_server_activate(edicts, edict_count, max_clients):
     print('On_server_activate')
+    players = json.loads(os.environ['steamplayers'])
     sys.stdout.flush()
     pass
 
@@ -68,17 +72,19 @@ def count_score():
     total_score = {}
 
     for player in PlayerIter():
-        if player.name not in total_score:
-            total_score[player.name] = {'score': 0, 'kills': 0, 'deaths': 0}
+        steamid = SteamID.parse(player.steamid).to_uint64()
+
+        if steamid not in total_score:
+            total_score[steamid] = {'score': 0, 'kills': 0, 'deaths': 0}
 
         team_score = 0
         for team in EntityIter('cs_team_manager'):
             if team.team_index == player.team:
                 team_score = team.score
 
-        total_score[player.name]['kills'] = player.kills
-        total_score[player.name]['deaths'] = player.deaths
-        total_score[player.name]['score'] = team_score
+        total_score[steamid]['kills'] = player.kills
+        total_score[steamid]['deaths'] = player.deaths
+        total_score[steamid]['score'] = team_score
 
     print(total_score)
     return total_score
