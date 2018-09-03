@@ -44,6 +44,8 @@ export default class CsServer {
   }
 
   shellExec(params, env) {
+    console.log('Starting', params, env);
+
     let cs = cp.spawn(execCmd, this.buildExecParams(params), {cwd, env});
 
     cs.stdout.on('data', (data) => {
