@@ -32,6 +32,11 @@ export default class CsServer {
       '-port': port
     };
 
+    if(players && players[0].length > 1) {
+      params['+game_type'] = 0;
+      params['+game_mode'] = 1;
+    }
+
     let env = {'steamplayers': JSON.stringify(players)};
 
     this.process = this.shellExec(params, env);
