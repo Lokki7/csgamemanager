@@ -1,7 +1,7 @@
 import PortChecker from './post-checker';
 import SourceServer from './source-server';
 
-const ip = '195.9.195.14';
+const ip = '109.68.238.63';
 const execCmd = `./srcds_run`;
 const cwd = '/home/csuser/duels/l4d2';
 const steamAcc = '4A90C150F3018C64C72C98A74E81D703';

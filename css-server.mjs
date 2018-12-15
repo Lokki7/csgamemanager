@@ -1,7 +1,7 @@
 import PortChecker from './post-checker';
 import SourceServer from './source-server';
 
-const ip = '195.9.195.14';
+const ip = '109.68.238.63';
 const execCmd = `./srcds_run`;
 const cwd = '/home/csuser/duels/cs-src';
 const steamAcc = 'B8FFD412DED380E1FA9C774DD79B8B92';
